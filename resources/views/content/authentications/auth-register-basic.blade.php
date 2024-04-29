@@ -47,6 +47,11 @@
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nomor Telephone</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    placeholder="Masukkan Username" autofocus>
+                            </div>
                             <button class="btn btn-primary d-grid w-100">
                                 Register
                             </button>
