@@ -17,25 +17,20 @@
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
-                            <a href="{{ url('/') }}" class="app-brand-link gap-2">
-                                <span class="app-brand-logo demo">@include('_partials.macros', [
-                                    'width' => 25,
-                                    'withbg' => 'var(--bs-primary)',
-                                ])</span>
-                                <span
-                                    class="app-brand-text demo text-body fw-bold">{{ config('variables.templateName') }}</span>
-                            </a>
+                            <img src="logo.jpg" alt="kerapatan-gereja-protestan-minahasa" width="100">
+                            <h4 class="mt-3 ms-4">Kerapatan Gereja Protestan Minahasa</h4>
                         </div>
-                        <!-- /Logo -->
-                        <h4 class="mb-2">Adventure starts here 🚀</h4>
-                        <p class="mb-4">Make your app management easy and fun!</p>
-
-                        <form id="formAuthentication" class="mb-3" action="{{ url('/') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="/register" method="POST">
                             @csrf
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Nama Lengkap" autofocus required>
+                            </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
-                                    placeholder="Masukkan Username" autofocus>
+                                    placeholder="Username" autofocus required>
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -43,14 +38,14 @@
                                 </div>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password"
-                                        placeholder="Masukkan Password" aria-describedby="password" />
+                                        placeholder="Password" required aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label">Nomor Telephone</label>
-                                <input type="text" class="form-control" id="username" name="username"
-                                    placeholder="Masukkan Username" autofocus>
+                                <label for="nomor_telephone" class="form-label">Nomor Telephone</label>
+                                <input type="text" class="form-control" id="nomor_telephone" name="nomor_telephone"
+                                    placeholder="Nomor Telephone" max="12" autofocus required>
                             </div>
                             <button class="btn btn-primary d-grid w-100">
                                 Register
