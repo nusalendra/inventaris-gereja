@@ -49,7 +49,10 @@ Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics
 
 // authentication
 Route::get('/', [LoginBasic::class, 'index'])->name('auth-login-basic');
+Route::post('/login', [LoginBasic::class, 'store']);
+Route::post('/logout', [LoginBasic::class, 'destroy']);
 Route::get('/register', [RegisterBasic::class, 'index'])->name('auth-register-basic');
+Route::post('/register', [RegisterBasic::class, 'store']);
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 
 // layout

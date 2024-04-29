@@ -15,21 +15,22 @@ class RegisterBasic extends Controller
     return view('content.authentications.auth-register-basic');
   }
 
-  public function store()
-    {
-        $attributes = request()->validate([
-            'name' => ['required', 'max:50'],
-            'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:5', 'max:20'],
-            'agreement' => ['accepted']
-        ]);
-        $attributes['password'] = bcrypt($attributes['password'] );
+  public function store(Request $request)
+  {
+    $attributes = request()->validate([
+      'name' => ['required', 'max:50'],
+      'username' => ['required', 'max:50'],
+      'password' => ['required'],
+      'nomor_telephone' => ['required'],
+    ]);
 
-        
+    $attributes['password'] = bcrypt($attributes['password']);
+    $attributes['role'] = 'Peminjam';
 
-        session()->flash('success', 'Your account has been created.');
-        $user = User::create($attributes);
-        Auth::login($user); 
-        return redirect('/dashboard');
-    }
+    session()->flash('success', 'Your account has been created.');
+    $user = User::create($attributes);
+    Auth::login($user);
+
+    return redirect('/');
+  }
 }

@@ -23,26 +23,21 @@ class LoginBasic extends Controller
         if(Auth::attempt($attributes))
         {
             session()->regenerate();
-            if(Auth::user()->role == "Kepala Sekolah") {
-                return redirect('dashboard-kepala-sekolah')->with(['success'=>'Kamu sudah login']);
-            } else if(Auth::user()->role == "Wali Kelas") {
-                return redirect('dashboard-wali-kelas')->with(['success'=>'Kamu sudah login']);
-            } else if(Auth::user()->role == "Guru Penjaskes") {
-                return redirect('#')->with(['success'=>'Kamu sudah login']);
-            } else if(Auth::user()->role == "Guru Agama") {
+            if(Auth::user()->role == "Admin") {
+                return redirect('/dashboard')->with(['success'=>'Kamu sudah login']);
+            } else if(Auth::user()->role == "Peminjam") {
                 return redirect('#')->with(['success'=>'Kamu sudah login']);
             }
         }
         else{
-            return back()->withErrors(['username'=>'Nama user atau password anda salah...']);
+            return back()->withErrors(['username'=>'Username atau password anda salah!']);
         }
     }
     
     public function destroy()
     {
-
         Auth::logout();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }
