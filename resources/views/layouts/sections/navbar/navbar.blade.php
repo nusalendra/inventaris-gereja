@@ -38,8 +38,8 @@
     <!-- Search -->
     <div class="navbar-nav align-items-center">
         <div class="app-brand justify-content-center">
-            <img src="logo.jpg" alt="kerapatan-gereja-protestan-minahasa" width="40">
-            <h5 class="mt-3 ms-3">Kerapatan Gereja Protestan Minahasa (KGPM)</h5>
+            {{-- <img src="logo.jpg" alt="kerapatan-gereja-protestan-minahasa" width="40"> --}}
+            <h5 class="mt-3 text-dark fw-bold">Kerapatan Gereja Protestan Minahasa (KGPM)</h5>
         </div>
     </div>
     <!-- /Search -->
@@ -52,7 +52,7 @@
                         <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
                     </div>
                     <div class="flex-grow-1">
-                        <span class="fw-bold d-block">{{ Auth::user()->name }}</span>
+                        <span class="fw-bold d-block">{{ Auth::user()->username }}</span>
                         <small class="text-muted">{{ Auth::user()->role }}</small>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                     class="w-px-40 h-auto rounded-circle">
                             </div>
                             <div class="flex-grow-1">
-                                <span class="fw-medium d-block">{{ Auth::user()->name }}</span>
+                                <span class="fw-medium d-block">{{ Auth::user()->username }}</span>
                                 <small class="text-muted">{{ Auth::user()->role }}</small>
                             </div>
                         </div>

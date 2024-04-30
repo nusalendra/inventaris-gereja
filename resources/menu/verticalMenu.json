@@ -6,19 +6,19 @@
     {
       "name": "Dashboard",
       "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "dashboard-analytics",
+      "slug": "dashboard",
       "url": "/dashboard"
     },
     {
       "name": "Kategori",
       "icon": "menu-icon tf-icons bx bx-collection",
-      "slug": "cards-basic",
+      "slug": "kategori-index",
       "url": "/kategori"
     },
     {
       "name": "Barang",
       "icon": "menu-icon tf-icons bx bx-table",
-      "slug": "tables-basic",
+      "slug": "barang-index",
       "url": "/barang"
     },
     {
