@@ -22,18 +22,18 @@
         <div class="layout-container">
 
             @if ($isMenu)
-                @include('layouts/sections/menu/verticalMenu')
+                @if (Auth::user()->role == 'Admin')
+                    @include('layouts/sections/menu/verticalMenu')
+                @endif
             @endif
 
-
             <!-- Layout page -->
-            <div class="layout-page">
-                <!-- BEGIN: Navbar-->
+            <div class="{{ Auth::user()->role == 'Admin' ? 'layout-page' : 'w-100' }}">
+                <!-- BEGIN: Navbar -->
                 @if ($isNavbar)
                     @include('layouts/sections/navbar/navbar')
                 @endif
-                <!-- END: Navbar-->
-
+                <!-- END: Navbar -->
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -55,11 +55,14 @@
                     @include('layouts/sections/footer/footer')
                 @endif
                 <!-- / Footer -->
+
                 <div class="content-backdrop fade"></div>
             </div>
-            <!--/ Content wrapper -->
         </div>
-        <!-- / Layout page -->
+
+        <!--/ Content wrapper -->
+    </div>
+    <!-- / Layout page -->
     </div>
 
     @if ($isMenu)

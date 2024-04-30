@@ -38,8 +38,37 @@
     <!-- Search -->
     <div class="navbar-nav align-items-center">
         <div class="app-brand justify-content-center">
-            {{-- <img src="logo.jpg" alt="kerapatan-gereja-protestan-minahasa" width="40"> --}}
-            <h5 class="mt-3 text-dark fw-bold">Kerapatan Gereja Protestan Minahasa (KGPM)</h5>
+            @if (Auth::user()->role == 'Admin')
+                <h5 class="mt-3 text-dark fw-bold">Kerapatan Gereja Protestan Minahasa (KGPM)</h5>
+            @elseif(Auth::user()->role == 'Peminjam')
+                <div class="navbar-nav align-items-center">
+                    <div class="app-brand justify-content-center">
+                        <nav class="navbar navbar-example navbar-expand-lg ">
+                            <img src="logo.jpg" alt="" width="50" class="me-2">
+                            <div class="container-fluid">
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbar-ex-2" aria-controls="navbar-ex-2" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbar-ex-2">
+                                    <div class="navbar-nav me-auto">
+                                        <a class="nav-item nav-link {{ strpos(Request::url(), 'peminjaman-barang') !== false ? 'active text-primary' : 'text-dark' }} fw-semibold"
+                                            href="{{ route('peminjaman-barang') }}">Peminjaman Barang</a>
+                                        <a class="nav-item nav-link text-dark fw-semibold"
+                                            href="javascript:void(0)">History Peminjaman Barang</a>
+                                        {{-- <a class="nav-item nav-link {{ strpos(Request::url(), 'history-peminjaman-barang') !== false ? 'active text-primary' : 'text-dark' }} fw-semibold"
+                                            href="{{ route('history-peminjaman-barang') }}">History Peminjaman
+                                            Barang</a>
+                                        <a class="nav-item nav-link {{ strpos(Request::url(), '') !== false ? 'active text-primary' : 'text-dark' }} fw-semibold"
+                                            href="{{ route('') }}">Contact</a> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     <!-- /Search -->

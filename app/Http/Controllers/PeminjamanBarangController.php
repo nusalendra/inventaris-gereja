@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Kategori;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
-class KategoriController extends Controller
+class PeminjamanBarangController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Kategori::all();
-        return view('content.pages.admin.kategori.index', compact('data'));
+        $data = Barang::all();
+        
+        return view('content.pages.peminjam.peminjaman-barang.index', compact('data'));
     }
 
     /**
@@ -22,7 +22,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('content.pages.admin.kategori.create');
+        //
     }
 
     /**
@@ -30,12 +30,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $kategori = new Kategori();
-        $kategori->nama = $request->nama;
-
-        $kategori->save();
-
-        return redirect('/kategori');
+        //
     }
 
     /**
@@ -51,8 +46,7 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Kategori::find($id);
-        return view('content.pages.admin.kategori.edit', compact('data'));
+        //
     }
 
     /**
@@ -60,12 +54,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $kategori = Kategori::find($id);
-        $kategori->nama = $request->nama;
-
-        $kategori->save();
-
-        return redirect('/kategori');
+        //
     }
 
     /**
@@ -73,9 +62,6 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Kategori::find($id);
-        $data->delete();
-        
-        return redirect('/kategori');
+        //
     }
 }

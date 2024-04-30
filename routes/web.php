@@ -44,6 +44,9 @@ use App\Http\Controllers\form_elements\BasicInput;
 use App\Http\Controllers\form_elements\InputGroups;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
+use App\Http\Controllers\Peminjam\BerandaController;
+use App\Http\Controllers\Peminjam\HistoryPeminjamanBarangController;
+use App\Http\Controllers\PeminjamanBarangController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
 // Main Page Route
@@ -51,7 +54,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 // authentication
 Route::get('/', [LoginBasic::class, 'index'])->name('auth-login-basic');
-Route::post('/login', [LoginBasic::class, 'store']);    
+Route::post('/login', [LoginBasic::class, 'store']);
 Route::post('/logout', [LoginBasic::class, 'destroy']);
 Route::get('/register', [RegisterBasic::class, 'index'])->name('auth-register-basic');
 Route::post('/register', [RegisterBasic::class, 'store']);
@@ -70,6 +73,10 @@ Route::post('/barang', [BarangController::class, 'store'])->name('barang-store')
 Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang-edit');
 Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang-update');
 Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang-destroy');
+
+// Peminjam
+Route::get('/peminjaman-barang', [PeminjamanBarangController::class, 'index'])->name('peminjaman-barang');
+Route::get('/history-peminjaman-barang', [HistoryPeminjamanBarangController::class, 'index']);
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');
