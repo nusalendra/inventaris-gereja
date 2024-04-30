@@ -26,7 +26,7 @@ class LoginBasic extends Controller
             if(Auth::user()->role == "Admin") {
                 return redirect('/dashboard')->with(['success'=>'Kamu sudah login']);
             } else if(Auth::user()->role == "Peminjam") {
-                return redirect('#')->with(['success'=>'Kamu sudah login']);
+                return redirect('/peminjaman-barang')->with(['success'=>'Kamu sudah login']);
             }
         }
         else{
