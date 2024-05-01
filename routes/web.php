@@ -44,9 +44,8 @@ use App\Http\Controllers\form_elements\BasicInput;
 use App\Http\Controllers\form_elements\InputGroups;
 use App\Http\Controllers\form_layouts\VerticalForm;
 use App\Http\Controllers\form_layouts\HorizontalForm;
-use App\Http\Controllers\Peminjam\BerandaController;
 use App\Http\Controllers\Peminjam\HistoryPeminjamanBarangController;
-use App\Http\Controllers\PeminjamanBarangController;
+use App\Http\Controllers\Peminjam\PeminjamanBarangController;
 use App\Http\Controllers\tables\Basic as TablesBasic;
 
 // Main Page Route
@@ -76,6 +75,9 @@ Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('baran
 
 // Peminjam
 Route::get('/peminjaman-barang', [PeminjamanBarangController::class, 'index'])->name('peminjaman-barang');
+Route::get('/form-peminjaman-barang/{id}', [PeminjamanBarangController::class, 'form']);
+Route::post('/peminjaman-barang', [PeminjamanBarangController::class, 'store']);
+
 Route::get('/history-peminjaman-barang', [HistoryPeminjamanBarangController::class, 'index']);
 
 // layout

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('barang_id')->constrained('barang')->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian');
+            $table->string('lokasi_barang');
             $table->integer('jumlah');
             $table->string('status');
             $table->timestamps();
