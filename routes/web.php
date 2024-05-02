@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\BarangController;
+use App\Http\Controllers\Admin\DaftarPeminjamanBarangController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\PeminjamanBarangDikonfirmasiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\layouts\WithoutMenu;
 use App\Http\Controllers\layouts\WithoutNavbar;
@@ -59,6 +61,7 @@ Route::get('/register', [RegisterBasic::class, 'index'])->name('auth-register-ba
 Route::post('/register', [RegisterBasic::class, 'store']);
 Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
 
+// Admin
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori-index');
 Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori-create');
 Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori-store');
@@ -72,6 +75,13 @@ Route::post('/barang', [BarangController::class, 'store'])->name('barang-store')
 Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang-edit');
 Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang-update');
 Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang-destroy');
+
+Route::get('/daftar-peminjaman-barang', [DaftarPeminjamanBarangController::class, 'index'])->name('daftar-peminjaman-barang-index');
+Route::put('/daftar-peminjaman-barang/{id}', [DaftarPeminjamanBarangController::class, 'update']);
+
+Route::get('/peminjaman-barang-dikonfirmasi', [PeminjamanBarangDikonfirmasiController::class, 'index'])->name('peminjaman-barang-dikonfirmasi-index');
+Route::put('/alasan-pembatalan-barang/{id}', [PeminjamanBarangDikonfirmasiController::class, 'update']);
+Route::put('/pengembalian-barang/{id}', [PeminjamanBarangDikonfirmasiController::class, 'pengembalianBarang']);
 
 // Peminjam
 Route::get('/peminjaman-barang', [PeminjamanBarangController::class, 'index'])->name('peminjaman-barang');

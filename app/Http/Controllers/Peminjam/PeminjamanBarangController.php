@@ -63,11 +63,6 @@ class PeminjamanBarangController extends Controller
 
         $peminjaman->save();
 
-        $barang = Barang::where('id', $request->barang_id)->first();
-        $barang->stok -= $peminjaman->jumlah;
-        
-        $barang->save();
-
         return redirect('/peminjaman-barang');
     }
 
