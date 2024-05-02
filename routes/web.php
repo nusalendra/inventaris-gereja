@@ -81,6 +81,7 @@ Route::put('/daftar-peminjaman-barang/{id}', [DaftarPeminjamanBarangController::
 
 Route::get('/peminjaman-barang-dikonfirmasi', [PeminjamanBarangDikonfirmasiController::class, 'index'])->name('peminjaman-barang-dikonfirmasi-index');
 Route::put('/alasan-pembatalan-barang/{id}', [PeminjamanBarangDikonfirmasiController::class, 'update']);
+Route::put('/pengembalian-barang/{id}', [PeminjamanBarangDikonfirmasiController::class, 'pengembalianBarang']);
 
 // Peminjam
 Route::get('/peminjaman-barang', [PeminjamanBarangController::class, 'index'])->name('peminjaman-barang');

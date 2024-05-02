@@ -80,10 +80,19 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <form action="/alasan-pembatalan-barang/{{ $item->id }}" method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <div class="d-flex px-2 py-1">
+                                        <div class="d-flex px-2 py-1">
+                                            <form action="/pengembalian-barang/{{ $item->id }}" method="POST">
+                                                @csrf
+                                                @method('put')
+                                                <div class="ms-2 d-flex flex-column justify-content-center">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Pengembalian Barang
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            <form action="/alasan-pembatalan-barang/{{ $item->id }}" method="POST">
+                                                @csrf
+                                                @method('put')
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
                                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                         data-bs-target="#modalPembatalanBarang">
@@ -123,8 +132,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

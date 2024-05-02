@@ -72,6 +72,18 @@ class PeminjamanBarangDikonfirmasiController extends Controller
         return redirect('/peminjaman-barang-dikonfirmasi');
     }
 
+    public function pengembalianBarang($id) {
+        $peminjaman = Peminjaman::find($id);
+        $peminjaman->status = 'Dikembalikan';
+        $peminjaman->save();
+
+        $barang = Barang::where('id', $peminjaman->barang_id)->first();
+        $barang->stok += $peminjaman->jumlah;
+        $barang->save();
+        
+        return redirect('/peminjaman-barang-dikonfirmasi');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
