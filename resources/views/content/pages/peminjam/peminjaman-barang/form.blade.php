@@ -42,8 +42,12 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Kirim Permintaan Peminjaman</button>
+                        <div class="d-flex">
+                            <a href="/peminjaman-barang">
+                                <button type="button" class="btn btn-danger">Kembali</button>
+                            </a>
+                            <button type="submit" class="btn btn-primary ms-2">Kirim Permintaan Peminjaman</button>
+                        </div>
                     </form>
                 </div>
             </div>
