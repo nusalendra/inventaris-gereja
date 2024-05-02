@@ -23,4 +23,8 @@ class Peminjaman extends Model
     public function barang() {
         return $this->belongsTo(Barang::class);
     }
+
+    public function pembatalanPeminjamanBarang() {
+        return $this->hasOne(PembatalanPeminjamanBarang::class);
+    }
 }

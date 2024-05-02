@@ -22,6 +22,18 @@
       "url": "/barang"
     },
     {
+      "name": "Daftar Peminjaman Barang",
+      "icon": "menu-icon tf-icons bx bx-list-check",
+      "slug": "daftar-peminjaman-barang-index",
+      "url": "/daftar-peminjaman-barang"
+    },
+    {
+      "name": "Peminjaman Barang Dikonfirmasi",
+      "icon": "menu-icon tf-icons bx bx-cube-alt",
+      "slug": "peminjaman-barang-dikonfirmasi-index",
+      "url": "/peminjaman-barang-dikonfirmasi"
+    },
+    {
       "menuHeader": "Components"
     },
     {
