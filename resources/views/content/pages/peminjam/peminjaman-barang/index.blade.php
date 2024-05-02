@@ -19,7 +19,12 @@
                                 'created_at',
                                 $tanggalSekarang,
                             )->count();
+
+                            $dataPeminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
+                                ->whereDate('created_at', $tanggalSekarang)
+                                ->get();
                         @endphp
+
                         @if (!$peminjaman)
                             @if ($peminjamanHariIni >= 2)
                                 <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
@@ -29,12 +34,37 @@
                                     class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
                             @endif
                         @else
-                            <button type="button" class="fw-semibold btn btn-danger">Barang ini telah dipinjam</button>
+                            @php
+                                $setButtonLebihDariSatu = false;
+                            @endphp
+
+                            @foreach ($dataPeminjaman as $peminjaman)
+                                @if ($peminjaman->status == 'Belum Dikonfirmasi' && !$setButtonLebihDariSatu)
+                                    @php
+                                        $setButtonLebihDariSatu = true;
+                                    @endphp
+                                    <button type="button" class="fw-semibold btn btn-primary">Permintaan
+                                        Peminjaman</button>
+                                @elseif ($peminjaman->status == 'Dikonfirmasi' && !$setButtonLebihDariSatu)
+                                    @php
+                                        $setButtonLebihDariSatu = true;
+                                    @endphp
+                                    <button type="button" class="fw-semibold btn btn-danger">Barang sedang
+                                        dipinjam</button>
+                                @endif
+                            @endforeach
+
+                            {{-- Tambahkan tombol "Pinjam Barang" jika tidak ada tombol yang ditampilkan --}}
+                            @if (!$setButtonLebihDariSatu)
+                                <a href="/form-peminjaman-barang/{{ $item->id }}"
+                                    class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
+                            @endif
                         @endif
                     </div>
                 </div>
             </div>
         @endforeach
+
         {{-- Modal --}}
         <div class="modal fade" id="modalToggle2" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">

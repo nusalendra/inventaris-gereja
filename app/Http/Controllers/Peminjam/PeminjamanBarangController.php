@@ -20,12 +20,6 @@ class PeminjamanBarangController extends Controller
         $data = Barang::all();
 
         $tanggalSekarang = Carbon::now()->toDateString();
-
-        // foreach($data as $item) {
-        //     $peminjaman = Peminjaman::where('barang_id', $item->id)
-        //         ->whereDate('created_at', $tanggalSekarang)
-        //         ->exists();
-        // }
         
         return view('content.pages.peminjam.peminjaman-barang.index', compact('data', 'tanggalSekarang'));
     }
