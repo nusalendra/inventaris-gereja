@@ -34,6 +34,12 @@
       "url": "/peminjaman-barang-dikonfirmasi"
     },
     {
+      "name": "Laporan",
+      "icon": "menu-icon tf-icons bx bx-detail",
+      "slug": "laporan-index",
+      "url": "/laporan"
+    },
+    {
       "menuHeader": "Components"
     },
     {
