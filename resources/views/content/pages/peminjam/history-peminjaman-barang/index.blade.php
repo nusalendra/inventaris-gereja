@@ -1,90 +1,129 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Dashboard')
+@section('title', 'History Peminjaman Barang')
 
 @section('content')
-    <div class="row mb-5">
-        @foreach ($data as $item)
-            <div class="col-md-3 col-lg-3 mb-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img class="card-img-top" src="/gambar-barang/{{ $item->gambar }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-semibold">{{ $item->nama }}</h5>
-                        <p>Stok Barang Tersedia : {{ $item->stok }}</p>
+    <div class="card">
+        <h5 class="card-header text-dark fw-bold">History Peminjaman Barang</h5>
+        <div class="card ps-3 pe-3 pb-3">
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive text-nowrap p-0">
+                    <table id="myTable" class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Barang</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian
+                                </th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Status Peminjaman</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Kegiatan</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
+                                {{-- <th class="text-uppercase text-xs font-weight-bolder">Aksi</th> --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $index => $item)
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $index + 1 }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->barang->nama }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">
+                                                    {{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d-m-Y') }}
+                                                    s/d
+                                                    {{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d-m-Y') }}
+                                                    ({{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->diffInDays($item->tanggal_pengembalian) }}
+                                                    hari)
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                @if ($item->status == 'Belum Dikonfirmasi' || $item->status == 'Ditolak' || $item->status == 'Dibatalkan')
+                                                    <h6 class="mb-0 text-sm text-danger">{{ $item->status }}</h6>
+                                                @else
+                                                    <h6 class="mb-0 text-sm text-primary">{{ $item->status }}</h6>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->jumlah }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->kategori->nama }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {{-- <td>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="px-2 py-1">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#modalToggle">
+                                                    Detail Peminjaman
+                                                </button>
 
-                        @php
-                            $peminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
-                                ->where('user_id', Auth::user()->id)
-                                ->exists();
-
-                            $peminjamanHariIni = App\Models\Peminjaman::whereDate('created_at', $tanggalSekarang)
-                                ->where('user_id', Auth::user()->id)
-                                ->count();
-
-                            $dataPeminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
-                                ->where('user_id', Auth::user()->id)
-                                ->whereDate('created_at', $tanggalSekarang)
-                                ->get();
-                        @endphp
-
-                        @if (!$peminjaman)
-                            @if ($peminjamanHariIni >= 2)
-                                <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
-                                    data-bs-target="#modalToggle2">Pinjam Barang</button>
-                            @else
-                                <a href="/form-peminjaman-barang/{{ $item->id }}"
-                                    class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
-                            @endif
-                        @else
-                            @php
-                                $setButtonLebihDariSatu = false;
-                            @endphp
-
-                            @foreach ($dataPeminjaman as $peminjaman)
-                                @if ($peminjaman->status == 'Belum Dikonfirmasi' && !$setButtonLebihDariSatu)
-                                    @php
-                                        $setButtonLebihDariSatu = true;
-                                    @endphp
-                                    <button type="button" class="fw-semibold btn btn-primary">Permintaan
-                                        Peminjaman</button>
-                                @elseif ($peminjaman->status == 'Dikonfirmasi' && !$setButtonLebihDariSatu)
-                                    @php
-                                        $setButtonLebihDariSatu = true;
-                                    @endphp
-                                    <button type="button" class="fw-semibold btn btn-danger">Barang sedang
-                                        dipinjam</button>
-                                @endif
+                                                <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
+                                                    tabindex="-1" style="display: none;" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalToggleLabel">Modal 1</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{ $item->barang->nama }}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-primary" data-bs-dismiss="modal">Open
+                                                                    second modal</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td> --}}
+                                </tr>
                             @endforeach
-
-                            {{-- Tambahkan tombol "Pinjam Barang" jika tidak ada tombol yang ditampilkan --}}
-                            @if (!$setButtonLebihDariSatu)
-                                <a href="/form-peminjaman-barang/{{ $item->id }}"
-                                    class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
-                            @endif
-                        @endif
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-        {{-- Modal --}}
-        <div class="modal fade" id="modalToggle2" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-danger" id="modalToggleLabel2">Penolakan Peminjaman Barang</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-dark fw-semibold">Maaf, peminjaman barang anda ditolak. Setiap peminjam dibatasi
-                            untuk
-                            meminjam maksimal 2 barang
-                            dalam 1 hari. Terima kasih atas pengertian Anda.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#modalToggle" data-bs-toggle="modal"
-                            data-bs-dismiss="modal">Kembali</button>
-                    </div>
+                        </tbody>
+                    </table>
+                    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+                    <script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+                    <script>
+                        let table = new DataTable('#myTable');
+                    </script>
                 </div>
             </div>
         </div>
