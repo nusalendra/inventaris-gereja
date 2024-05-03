@@ -19,13 +19,11 @@
 
                             $peminjamanHariIni = App\Models\Peminjaman::whereDate('created_at', $tanggalSekarang)
                                 ->where('user_id', Auth::user()->id)
-                                ->where('status', 'Belum Dikonfirmasi')
-                                ->orWhere('status', 'Dikonfirmasi')
+                                ->whereIn('status', ['Belum Dikonfirmasi', 'Dikonfirmasi'])
                                 ->count();
 
                             $dataPeminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
                                 ->where('user_id', Auth::user()->id)
-                                ->whereDate('created_at', $tanggalSekarang)
                                 ->get();
                         @endphp
 
