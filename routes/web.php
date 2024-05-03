@@ -88,7 +88,7 @@ Route::get('/peminjaman-barang', [PeminjamanBarangController::class, 'index'])->
 Route::get('/form-peminjaman-barang/{id}', [PeminjamanBarangController::class, 'form']);
 Route::post('/peminjaman-barang', [PeminjamanBarangController::class, 'store']);
 
-Route::get('/history-peminjaman-barang', [HistoryPeminjamanBarangController::class, 'index']);
+Route::get('/history-peminjaman-barang', [HistoryPeminjamanBarangController::class, 'index'])->name('history-peminjaman-barang');
 
 // layout
 Route::get('/layouts/without-menu', [WithoutMenu::class, 'index'])->name('layouts-without-menu');

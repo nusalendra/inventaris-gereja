@@ -53,15 +53,12 @@
                                 </button>
                                 <div class="collapse navbar-collapse" id="navbar-ex-2">
                                     <div class="navbar-nav me-auto">
-                                        <a class="nav-item nav-link {{ strpos(Request::url(), 'peminjaman-barang') !== false ? 'active text-primary' : 'text-dark' }} fw-semibold"
+                                        <a class="nav-item nav-link {{ request()->routeIs('peminjaman-barang') ? 'active text-primary' : 'text-dark' }} fw-semibold"
                                             href="{{ route('peminjaman-barang') }}">Peminjaman Barang</a>
-                                        <a class="nav-item nav-link text-dark fw-semibold"
-                                            href="javascript:void(0)">History Peminjaman Barang</a>
-                                        {{-- <a class="nav-item nav-link {{ strpos(Request::url(), 'history-peminjaman-barang') !== false ? 'active text-primary' : 'text-dark' }} fw-semibold"
+
+                                        <a class="nav-item nav-link {{ request()->routeIs('history-peminjaman-barang') ? 'active text-primary' : 'text-dark' }} fw-semibold"
                                             href="{{ route('history-peminjaman-barang') }}">History Peminjaman
                                             Barang</a>
-                                        <a class="nav-item nav-link {{ strpos(Request::url(), '') !== false ? 'active text-primary' : 'text-dark' }} fw-semibold"
-                                            href="{{ route('') }}">Contact</a> --}}
                                     </div>
                                 </div>
                             </div>

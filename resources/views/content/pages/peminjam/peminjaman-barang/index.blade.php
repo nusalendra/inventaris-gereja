@@ -13,15 +13,17 @@
                         <p>Stok Barang Tersedia : {{ $item->stok }}</p>
 
                         @php
-                            $peminjaman = App\Models\Peminjaman::where('barang_id', $item->id)->exists();
+                            $peminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
+                                ->where('user_id', Auth::user()->id)
+                                ->exists();
 
-                            $peminjamanHariIni = App\Models\Peminjaman::whereDate(
-                                'created_at',
-                                $tanggalSekarang,
-                            )->count();
+                            $peminjamanHariIni = App\Models\Peminjaman::whereDate('created_at', $tanggalSekarang)
+                                ->where('user_id', Auth::user()->id)
+                                ->whereIn('status', ['Belum Dikonfirmasi', 'Dikonfirmasi'])
+                                ->count();
 
                             $dataPeminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
-                                ->whereDate('created_at', $tanggalSekarang)
+                                ->where('user_id', Auth::user()->id)
                                 ->get();
                         @endphp
 
