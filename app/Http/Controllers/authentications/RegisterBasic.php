@@ -28,8 +28,7 @@ class RegisterBasic extends Controller
     $attributes['role'] = 'Peminjam';
 
     session()->flash('success', 'Your account has been created.');
-    $user = User::create($attributes);
-    Auth::login($user);
+    User::create($attributes);
 
     return redirect('/');
   }
