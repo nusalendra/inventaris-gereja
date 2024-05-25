@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\PembatalanPeminjamanBarang;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
@@ -57,14 +58,24 @@ class DaftarPeminjamanBarangController extends Controller
     {
         
         $peminjaman = Peminjaman::find($id);
-        $peminjaman->status = $request->status;
-        
-        $peminjaman->save();
+        if($request->status == 'Dikonfirmasi') {
+            $peminjaman->status = $request->status;
+            
+            $peminjaman->save();
+    
+            $barang = Barang::where('id', $peminjaman->barang_id)->first();
+            $barang->stok -= $peminjaman->jumlah;
+            
+            $barang->save();
+        } else {
+            $peminjaman->status = 'Ditolak';
+            $peminjaman->save();
 
-        $barang = Barang::where('id', $peminjaman->barang_id)->first();
-        $barang->stok -= $peminjaman->jumlah;
-        
-        $barang->save();
+            $tolakPeminjaman = new PembatalanPeminjamanBarang();
+            $tolakPeminjaman->peminjaman_id = $id;
+            $tolakPeminjaman->alasan_pembatalan = $request->alasan_pembatalan;
+            $tolakPeminjaman->save();
+        }
 
         return redirect('/daftar-peminjaman-barang');
     }
