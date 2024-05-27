@@ -85,6 +85,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/pengembalian-barang/{id}', [PeminjamanBarangDikonfirmasiController::class, 'pengembalianBarang']);
         
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan-index');
+        Route::get('/laporan/cetak-pdf', [LaporanController::class, 'cetakPDF'])->name('cetak-pdf');
+
+        Route::get('/laporan-peminjaman-barang-dibatalkan-&-ditolak', [LaporanController::class, 'laporanDibatalkan'])->name('laporan-dibatalkan-index');
     });
     
     Route::group(['middleware' => 'role:Peminjam'], function () {

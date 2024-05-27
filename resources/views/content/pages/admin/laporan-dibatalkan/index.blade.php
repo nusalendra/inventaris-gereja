@@ -1,13 +1,10 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Laporan Peminjaman Barang')
+@section('title', 'Laporan Peminjaman Barang Dibatalkan / Ditolak')
 
 @section('content')
-    <div class="text-end mb-3">
-        <a href="/laporan/cetak-pdf" class="btn btn-primary" target="_blank">Cetak PDF</a>
-    </div>
     <div class="card">
-        <h5 class="card-header text-dark fw-bold">Laporan Peminjaman Barang Selesai</h5>
+        <h5 class="card-header text-dark fw-bold">Laporan Peminjaman Barang Dibatalkan / Ditolak</h5>
         <div class="card ps-3 pe-3 pb-3">
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive text-nowrap p-0">
@@ -21,6 +18,7 @@
                                 <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,6 +76,13 @@
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->status }}</h6>
                                             </div>
                                         </div>
                                     </td>
