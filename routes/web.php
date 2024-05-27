@@ -105,13 +105,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/layouts/container', [Container::class, 'index'])->name('layouts-container');
     Route::get('/layouts/blank', [Blank::class, 'index'])->name('layouts-blank');
     
-    // pages
-    Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name('pages-account-settings-account');
-    Route::get('/pages/account-settings-notifications', [AccountSettingsNotifications::class, 'index'])->name('pages-account-settings-notifications');
-    Route::get('/pages/account-settings-connections', [AccountSettingsConnections::class, 'index'])->name('pages-account-settings-connections');
-    Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
-    Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
-    
     // cards
     Route::get('/cards/basic', [CardBasic::class, 'index'])->name('cards-basic');
     
