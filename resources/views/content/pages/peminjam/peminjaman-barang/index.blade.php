@@ -52,16 +52,19 @@
                                     @endphp
                                     <button type="button" class="fw-semibold btn btn-danger">Barang sedang
                                         dipinjam</button>
-                                @else
-                                    @if ($peminjamanHariIni >= 2)
-                                        <button type="button" class="btn btn-outline-primary mt-auto"
-                                            data-bs-toggle="modal" data-bs-target="#modalToggle2">Pinjam Barang</button>
-                                    @else
-                                        <a href="/form-peminjaman-barang/{{ $item->id }}"
-                                            class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
-                                    @endif
                                 @endif
                             @endforeach
+
+                            {{-- Tambahkan tombol "Pinjam Barang" jika tidak ada tombol yang ditampilkan --}}
+                            @if (!$setButtonLebihDariSatu)
+                                @if ($peminjamanHariIni >= 2)
+                                    <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
+                                        data-bs-target="#modalToggle2">Pinjam Barang</button>
+                                @else
+                                    <a href="/form-peminjaman-barang/{{ $item->id }}"
+                                        class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
+                                @endif
+                            @endif
                         @endif
                     </div>
                 </div>
