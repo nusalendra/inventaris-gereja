@@ -40,6 +40,12 @@
       "url": "/laporan"
     },
     {
+      "name": "Laporan Dibatalkan / Ditolak",
+      "icon": "menu-icon tf-icons bx bx-detail",
+      "slug": "laporan-dibatalkan-index",
+      "url": "/laporan-peminjaman-barang-dibatalkan-&-ditolak"
+    },
+    {
       "menuHeader": "Components"
     },
     {

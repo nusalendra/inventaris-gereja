@@ -1,10 +1,13 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Daftar Peminjaman Barang')
+@section('title', 'Laporan Peminjaman Barang')
 
 @section('content')
+    <div class="text-end mb-3">
+        <a href="/laporan/cetak-pdf" class="btn btn-primary" target="_blank">Cetak PDF</a>
+    </div>
     <div class="card">
-        <h5 class="card-header text-dark fw-bold">Daftar Peminjaman Barang</h5>
+        <h5 class="card-header text-dark fw-bold">Laporan Peminjaman Barang Selesai</h5>
         <div class="card ps-3 pe-3 pb-3">
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive text-nowrap p-0">
@@ -18,7 +21,6 @@
                                 <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,33 +80,6 @@
                                                 <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <form action="/daftar-peminjaman-barang/{{ $item->id }}" method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    @if ($item->jumlah > $item->barang->stok)
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalJumlahLebihDariStok">Konfirmasi
-                                                            Peminjaman</button>
-                                                    @else
-                                                        <button type="submit" class="btn btn-primary" value="Dikonfirmasi"
-                                                            name="status">
-                                                            Konfirmasi Peminjaman
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <button type="submit" class="btn btn-danger" value="Ditolak"
-                                                        name="status">
-                                                        Tolak Peminjaman
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

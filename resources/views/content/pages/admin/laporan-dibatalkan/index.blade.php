@@ -1,10 +1,10 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Daftar Peminjaman Barang')
+@section('title', 'Laporan Peminjaman Barang Dibatalkan / Ditolak')
 
 @section('content')
     <div class="card">
-        <h5 class="card-header text-dark fw-bold">Daftar Peminjaman Barang</h5>
+        <h5 class="card-header text-dark fw-bold">Laporan Peminjaman Barang Dibatalkan / Ditolak</h5>
         <div class="card ps-3 pe-3 pb-3">
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive text-nowrap p-0">
@@ -18,7 +18,7 @@
                                 <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,65 +80,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <form action="/daftar-peminjaman-barang/{{ $item->id }}" method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    @if ($item->jumlah > $item->barang->stok)
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalJumlahLebihDariStok">Konfirmasi
-                                                            Peminjaman</button>
-                                                    @else
-                                                        <button type="submit" class="btn btn-primary" value="Dikonfirmasi"
-                                                            name="status">
-                                                            Konfirmasi Peminjaman
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#modalTolakPeminjaman" value="Ditolak"
-                                                        name="status">
-                                                        Tolak Peminjaman
-                                                    </button>
-                                                    <div class="modal fade" id="modalTolakPeminjaman" tabindex="-1"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="modalTolakPeminjamanTitle">
-                                                                        Pembatalan Peminjaman
-                                                                        Barang</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col mb-3">
-                                                                            <label for="nameWithTitle"
-                                                                                class="form-label">Alasan Pembatalan
-                                                                                Barang</label>
-                                                                            <input type="text" id="nameWithTitle"
-                                                                                class="form-control"
-                                                                                name="alasan_pembatalan"
-                                                                                placeholder="Berikan Alasan Pembatalan">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save
-                                                                        changes</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->status }}</h6>
                                             </div>
-                                        </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
