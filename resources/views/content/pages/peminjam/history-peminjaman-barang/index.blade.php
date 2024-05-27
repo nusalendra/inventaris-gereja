@@ -13,13 +13,13 @@
                             <tr>
                                 <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Barang</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Kegiatan</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian
                                 </th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Status Peminjaman</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Kegiatan</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
-                                {{-- <th class="text-uppercase text-xs font-weight-bolder">Aksi</th> --}}
+                                <th class="text-uppercase text-xs font-weight-bolder">Status Peminjaman</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +42,13 @@
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->kategori->nama }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">
                                                     {{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d-m-Y') }}
                                                     s/d
@@ -49,6 +56,20 @@
                                                     ({{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->diffInDays($item->tanggal_pengembalian) }}
                                                     hari)
                                                 </h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->jumlah }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
                                             </div>
                                         </div>
                                     </td>
@@ -64,58 +85,44 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $item->jumlah }}</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $item->kategori->nama }}</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    {{-- <td>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="px-2 py-1">
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#modalToggle">
-                                                    Detail Peminjaman
-                                                </button>
+                                        @if ($item->status == 'Dibatalkan' || $item->status == 'Ditolak')
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="px-2 py-1">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#alasanPembatalanModal{{ $item->id }}">
+                                                        Lihat Alasan
+                                                    </button>
 
-                                                <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
-                                                    tabindex="-1" style="display: none;" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalToggleLabel">Modal 1</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                {{ $item->barang->nama }}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-primary" data-bs-dismiss="modal">Open
-                                                                    second modal</button>
+                                                    <div class="modal fade" id="alasanPembatalanModal{{ $item->id }}"
+                                                        aria-labelledby="alasanPembatalanModalLabel{{ $item->id }}"
+                                                        tabindex="-1" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title fw-bold"
+                                                                        id="alasanPembatalanModalLabel{{ $item->id }}">
+                                                                        Alasan
+                                                                        Pembatalan / Penolakan Peminjaman Barang
+                                                                    </h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="text-dark fw-semibold">
+                                                                        {{ $item->pembatalanPeminjamanBarang->alasan_pembatalan }}
+
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td> --}}
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
