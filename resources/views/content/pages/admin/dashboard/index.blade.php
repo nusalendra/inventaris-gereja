@@ -22,8 +22,7 @@
                     <div class="col-sm-7">
                         <div class="card-body">
                             <h5 class="card-title text-primary">Selamat Datang {{ Auth::user()->name }}!</h5>
-                            <p class="mb-4">Halaman Dashboard menampilkan beberapa chart untuk informasi inventaris gereja,
-                                termasuk informasi akun terdaftar, stok barang tersedia, dan jumlah peminjaman</p>
+                            <p class="mb-4">Halaman Dashboard menampilkan beberapa informasi terkait inventaris gereja, meliputi total akun terdaftar, stok barang tersedia, dan jumlah peminjaman barang berdasarkan status</p>
                         </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
