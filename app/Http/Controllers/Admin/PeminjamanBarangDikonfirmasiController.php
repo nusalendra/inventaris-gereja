@@ -15,6 +15,7 @@ class PeminjamanBarangDikonfirmasiController extends Controller
      */
     public function index()
     {
+        
         $data = Peminjaman::where('status', '=', 'Dikonfirmasi')->get();
         return view('content.pages.admin.peminjaman-barang-dikonfirmasi.index', compact('data'));
     }

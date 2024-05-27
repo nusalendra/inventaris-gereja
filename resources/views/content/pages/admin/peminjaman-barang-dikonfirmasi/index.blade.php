@@ -90,49 +90,60 @@
                                                     </button>
                                                 </div>
                                             </form>
-                                            <form action="/alasan-pembatalan-barang/{{ $item->id }}" method="POST">
-                                                @csrf
-                                                @method('put')
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#modalPembatalanBarang">
-                                                        Batalkan Peminjaman
-                                                    </button>
-                                                    <div class="modal fade" id="modalPembatalanBarang" tabindex="-1"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="modalPembatalanBarangTitle">
-                                                                        Pembatalan Peminjaman
-                                                                        Barang</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col mb-3">
-                                                                            <label for="nameWithTitle"
-                                                                                class="form-label">Alasan Pembatalan
-                                                                                Barang</label>
-                                                                            <input type="text" id="nameWithTitle"
-                                                                                class="form-control"
-                                                                                name="alasan_pembatalan"
-                                                                                placeholder="Berikan Alasan Pembatalan">
+                                            @php
+                                                $tanggalSekarang = \Carbon\Carbon::now()->startOfDay();
+                                                $tanggalPeminjaman = \Carbon\Carbon::parse($item->tanggal_peminjaman);
+                                                $selisihHari = $tanggalSekarang->diffInDays($tanggalPeminjaman);
+                                            @endphp
+                                            @if ($selisihHari > 2)
+                                                <form action="/alasan-pembatalan-barang/{{ $item->id }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('put')
+                                                    <div class="ms-2 d-flex flex-column justify-content-center">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#modalPembatalanBarang">
+                                                            Batalkan Peminjaman
+                                                        </button>
+                                                        <div class="modal fade" id="modalPembatalanBarang" tabindex="-1"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="modalPembatalanBarangTitle">
+                                                                            Pembatalan Peminjaman
+                                                                            Barang</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row">
+                                                                            <div class="col mb-3">
+                                                                                <label for="nameWithTitle"
+                                                                                    class="form-label">Alasan Pembatalan
+                                                                                    Barang</label>
+                                                                                <input type="text" id="nameWithTitle"
+                                                                                    class="form-control"
+                                                                                    name="alasan_pembatalan"
+                                                                                    placeholder="Berikan Alasan Pembatalan">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save
-                                                                        changes</button>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Save
+                                                                            changes</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
