@@ -19,6 +19,7 @@
                                 <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Status</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,6 +84,39 @@
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">{{ $item->status }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="px-2 py-1">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#alasanPembatalanModal{{ $item->id }}">
+                                                    Lihat Alasan
+                                                </button>
+
+                                                <div class="modal fade" id="alasanPembatalanModal{{ $item->id }}"
+                                                    aria-labelledby="alasanPembatalanModalLabel{{ $item->id }}"
+                                                    tabindex="-1" style="display: none;" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title fw-bold"
+                                                                    id="alasanPembatalanModalLabel{{ $item->id }}">
+                                                                    Alasan
+                                                                    Pembatalan / Penolakan Peminjaman Barang
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="text-dark fw-semibold">
+                                                                    {{ $item->pembatalanPeminjamanBarang->alasan_pembatalan }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
