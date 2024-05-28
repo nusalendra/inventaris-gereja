@@ -20,11 +20,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="tanggal_peminjaman">Tanggal Peminjaman</label>
-                            <input type="date" class="form-control" id="tanggal_peminjaman" name="tanggal_peminjaman" required />
+                            <input type="date" class="form-control" id="tanggal_peminjaman" name="tanggal_peminjaman" required min="{{ date('Y-m-d') }}" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="tanggal_pengembalian">Tanggal Pengembalian</label>
-                            <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required />
+                            <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required min="{{ date('Y-m-d') }}" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="lokasi_barang">Lokasi Barang Digunakan</label>
