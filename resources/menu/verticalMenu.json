@@ -44,6 +44,12 @@
       "icon": "menu-icon tf-icons bx bx-detail",
       "slug": "laporan-dibatalkan-index",
       "url": "/laporan-peminjaman-barang-dibatalkan-&-ditolak"
+    },
+    {
+      "name": "Akun Peminjam",
+      "icon": "menu-icon tf-icons bx bxs-user",
+      "slug": "akun-peminjam-index",
+      "url": "/akun-peminjam"
     }
   ]
 }

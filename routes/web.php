@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AkunPeminjamController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\DaftarPeminjamanBarangController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -50,6 +51,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/laporan/cetak-pdf', [LaporanController::class, 'cetakPDF'])->name('cetak-pdf');
 
         Route::get('/laporan-peminjaman-barang-dibatalkan-&-ditolak', [LaporanController::class, 'laporanDibatalkan'])->name('laporan-dibatalkan-index');
+        
+        Route::get('/akun-peminjam', [AkunPeminjamController::class, 'index'])->name('akun-peminjam-index');
+        Route::delete('/akun-peminjam/{id}', [AkunPeminjamController::class, 'destroy']);
     });
     
     Route::group(['middleware' => 'role:Peminjam'], function () {
