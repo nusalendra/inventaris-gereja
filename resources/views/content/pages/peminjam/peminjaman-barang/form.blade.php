@@ -10,28 +10,26 @@
                     <h5 class="py-2 text-dark">Peminjaman Barang {{ $barang->nama }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="/peminjaman-barang" method="POST">
+                    <form action="/peminjaman-barang" method="POST" onsubmit="return validateDates(event)">
                         @csrf
                         <input type="hidden" value="{{ $barang->id }}" name="barang_id">
                         <div class="mb-3">
                             <label class="form-label" for="jumlah">Jumlah Peminjaman</label>
                             <input type="number" class="form-control" id="jumlah" name="jumlah"
-                                placeholder="Berapa Jumlah Dibutuhkan ?" value="1" min="0" required />
+                                   placeholder="Berapa Jumlah Dibutuhkan ?" value="1" min="0" required />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="tanggal_peminjaman">Tanggal Peminjaman</label>
-                            <input type="date" class="form-control" id="tanggal_peminjaman" name="tanggal_peminjaman"
-                                required />
+                            <input type="date" class="form-control" id="tanggal_peminjaman" name="tanggal_peminjaman" required />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="tanggal_pengembalian">Tanggal Pengembalian</label>
-                            <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian"
-                                required />
+                            <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="lokasi_barang">Lokasi Barang Digunakan</label>
                             <input type="text" class="form-control" id="lokasi_barang" name="lokasi_barang"
-                                placeholder="Dimana Lokasi Barang Digunakan ?" required />
+                                   placeholder="Dimana Lokasi Barang Digunakan ?" required />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="kategori_id">Peminjaman Barang Untuk Kegiatan</label>
@@ -49,8 +47,39 @@
                             <button type="submit" class="btn btn-primary ms-2">Kirim Permintaan Peminjaman</button>
                         </div>
                     </form>
+                    <div class="modal fade" id="modalToggle2" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-danger" id="modalToggleLabel2">Penolakan Peminjaman Barang</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-dark fw-semibold">Maaf, tanggal pengembalian tidak boleh sebelum tanggal peminjaman.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">Kembali</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function validateDates(event) {
+            const tanggalPeminjaman = document.getElementById('tanggal_peminjaman').value;
+            const tanggalPengembalian = document.getElementById('tanggal_pengembalian').value;
+    
+            if (new Date(tanggalPengembalian) < new Date(tanggalPeminjaman)) {
+                event.preventDefault(); 
+                var myModal = new bootstrap.Modal(document.getElementById('modalToggle2'), {});
+                myModal.show();
+                return false;
+            }
+    
+            return true;
+        }
+    </script>
 @endsection
