@@ -41,7 +41,8 @@ class BarangController extends Controller
             $file->move(public_path('gambar-barang'), $filename);
             $barang->gambar = $filename;
         }
-        
+        $barang->lokasi_barang = $request->lokasi_barang;
+
         $barang->save();
 
         return redirect('/barang');
@@ -82,6 +83,8 @@ class BarangController extends Controller
             $file->move(public_path('gambar-barang'), $filename);
             $barang->gambar = $filename;
         }
+        
+        $barang->lokasi_barang = $request->lokasi_barang;
         
         $barang->save();
 

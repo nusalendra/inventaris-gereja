@@ -38,6 +38,17 @@
                                     id="basic-default-name" />
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="lokasi_barang">Lokasi Barang <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                <select class="form-select" name="lokasi_barang" aria-label="Default select example">
+                                    <option selected>Tentukan Lokasi Barang</option>
+                                    <option value="Gudang Lantai 1" {{ $data->lokasi_barang === 'Gudang Lantai 1' ? 'selected' : '' }}>Gudang Lantai 1</option>
+                                    <option value="Gudang Lantai 2" {{ $data->lokasi_barang === 'Gudang Lantai 2' ? 'selected' : '' }}>Gudang Lantai 2</option>
+                                  </select>
+                            </div>
+                        </div>
                         <div class="row justify-content-end">
                             <div class="text-end">
                                 <a href="/barang">
