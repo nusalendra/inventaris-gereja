@@ -12,7 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class HistoryPeminjamanBarangController extends Controller
 {
     public function index() {
-        $data = Peminjaman::where('user_id', Auth::user()->id)->get();
+        $user = Auth::user();
+
+        $data = Peminjaman::where('user_id', $user->id)
+            ->where(function($query) {
+                $query->where('status', 'Ditolak')
+                      ->orWhere('status', 'Dibatalkan')
+                      ->orWhere('status', 'Dikembalikan');
+            })
+            ->get();
         
         return view('content.pages.peminjam.history-peminjaman-barang.index', compact('data'));
     }
