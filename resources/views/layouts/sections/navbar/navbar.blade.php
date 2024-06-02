@@ -55,7 +55,8 @@
                                     <div class="navbar-nav me-auto">
                                         <a class="nav-item nav-link {{ request()->routeIs('peminjaman-barang') ? 'active text-primary' : 'text-dark' }} fw-semibold"
                                             href="{{ route('peminjaman-barang') }}">Peminjaman Barang</a>
-
+                                        <a class="nav-item nav-link {{ request()->routeIs('proses-peminjaman-barang') ? 'active text-primary' : 'text-dark' }} fw-semibold"
+                                            href="{{ route('proses-peminjaman-barang') }}">Proses Peminjaman Barang</a>
                                         <a class="nav-item nav-link {{ request()->routeIs('history-peminjaman-barang') ? 'active text-primary' : 'text-dark' }} fw-semibold"
                                             href="{{ route('history-peminjaman-barang') }}">History Peminjaman
                                             Barang</a>

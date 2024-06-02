@@ -13,6 +13,7 @@ use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\Peminjam\HistoryPeminjamanBarangController;
 use App\Http\Controllers\Peminjam\PeminjamanBarangController;
+use App\Http\Controllers\Peminjam\ProsesPeminjamanBarangController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', [LoginBasic::class, 'index'])->name('auth-login-basic');
@@ -62,6 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/peminjaman-barang', [PeminjamanBarangController::class, 'store']);
         
         Route::get('/history-peminjaman-barang', [HistoryPeminjamanBarangController::class, 'index'])->name('history-peminjaman-barang');
+        
+        Route::get('/proses-peminjaman-barang', [ProsesPeminjamanBarangController::class, 'index'])->name('proses-peminjaman-barang');
     });
     
     Route::post('/logout', [LoginBasic::class, 'destroy']);
