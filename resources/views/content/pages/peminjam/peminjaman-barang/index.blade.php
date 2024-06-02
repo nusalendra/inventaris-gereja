@@ -10,7 +10,11 @@
                     <img class="card-img-top" src="/gambar-barang/{{ $item->gambar }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title text-dark fw-semibold">{{ $item->nama }}</h5>
-                        <p>Stok Barang Tersedia : {{ $item->stok }}</p>
+                        <p>
+                            <span>Stok Barang Tersedia : {{ $item->stok }}</span>
+                            <br>
+                            <span>Batas Peminjaman Barang : {{ $item->hari_batas_peminjaman }} Hari</span>
+                        </p>                        
 
                         @php
                             $peminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
