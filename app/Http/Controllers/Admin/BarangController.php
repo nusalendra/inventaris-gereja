@@ -42,6 +42,7 @@ class BarangController extends Controller
             $barang->gambar = $filename;
         }
         $barang->lokasi_barang = $request->lokasi_barang;
+        $barang->hari_batas_peminjaman = $request->hari_batas_peminjaman;
 
         $barang->save();
 
@@ -85,6 +86,7 @@ class BarangController extends Controller
         }
         
         $barang->lokasi_barang = $request->lokasi_barang;
+        $barang->hari_batas_peminjaman = $request->hari_batas_peminjaman;
         
         $barang->save();
 

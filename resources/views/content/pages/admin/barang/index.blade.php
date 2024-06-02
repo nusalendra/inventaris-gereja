@@ -21,6 +21,7 @@
                                 <th class="text-uppercase text-xs font-weight-bolder">Stok Barang</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Gambar Barang</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Batas Peminjaman Barang</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                             </tr>
                         </thead>
@@ -62,6 +63,13 @@
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $item->hari_batas_peminjaman }} Hari</h6>
                                             </div>
                                         </div>
                                     </td>

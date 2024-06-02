@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('stok');
             $table->string('gambar');
             $table->string('lokasi_barang');
+            $table->integer('hari_batas_peminjaman');
             $table->timestamps();
         });
     }
