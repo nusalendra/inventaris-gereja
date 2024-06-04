@@ -19,7 +19,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="text" name="nama" class="form-control" id="basic-default-name"
-                                    value="{{ $data->nama }}" placeholder="Masukkan Nama Barang" disabled />
+                                    value="{{ $data->nama }}" placeholder="Masukkan Nama Barang" />
                             </div>
                         </div>
                         <div class="row mb-3">
