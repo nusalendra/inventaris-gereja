@@ -14,10 +14,10 @@
                                 <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Barang</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Kegiatan</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian
-                                </th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Tgl Pengajuan</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Tgl Peminjaman - Pengembalian</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Status Peminjaman</th>
                             </tr>
                         </thead>
@@ -49,6 +49,15 @@
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm">
+                                                    {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">
                                                     {{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d-m-Y') }}
                                                     s/d
                                                     {{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d-m-Y') }}
@@ -68,7 +77,14 @@
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
+                                                @php
+                                                    $lokasiBarang = $item->lokasi_barang;
+                                                    $maxLength = 12;
+                                                    if (strlen($lokasiBarang) > $maxLength) {
+                                                        $lokasiBarang = substr($lokasiBarang, 0, $maxLength) . '...';
+                                                    }
+                                                @endphp
+                                                <h6 class="mb-0 text-sm">{{ $lokasiBarang }}</h6>
                                             </div>
                                         </div>
                                     </td>
