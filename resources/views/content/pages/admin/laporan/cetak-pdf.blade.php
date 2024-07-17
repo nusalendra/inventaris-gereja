@@ -56,12 +56,12 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Penanggung Jawab</th>
-                        <th>Nama Barang</th>
-                        <th>Untuk Kegiatan</th>
-                        <th>Tanggal Peminjaman - Pengembalian</th>
+                        <th>Peminjam</th>
+                        <th>Barang</th>
+                        <th>Kegiatan</th>
+                        <th>Tgl Peminjaman - Pengembalian</th>
                         <th>Jumlah</th>
-                        <th>Lokasi Barang Digunakan</th>
+                        <th>Lokasi Barang</th>
                     </tr>
                 </thead>
                 <tbody>
