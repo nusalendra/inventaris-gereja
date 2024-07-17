@@ -12,12 +12,12 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Nama Penanggung Jawab</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Nama Barang</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Untuk Kegiatan</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Tanggal Peminjaman - Pengembalian</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang Digunakan</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Peminjam</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Barang</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Kegiatan</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Tgl Peminjaman - Pengembalian</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Jml</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Status</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                             </tr>
@@ -35,7 +35,14 @@
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $item->user->name }}</h6>
+                                                @php
+                                                    $userName = $item->user->name;
+                                                    $maxLength = 12;
+                                                    if (strlen($userName) > $maxLength) {
+                                                        $userName = substr($userName, 0, $maxLength) . '...';
+                                                    }
+                                                @endphp
+                                                <h6 class="mb-0 text-sm">{{ $userName }}</h6>
                                             </div>
                                         </div>
                                     </td>
@@ -76,7 +83,14 @@
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ $item->lokasi_barang }}</h6>
+                                                @php
+                                                    $lokasiBarang = $item->lokasi_barang;
+                                                    $maxLength = 12;
+                                                    if (strlen($lokasiBarang) > $maxLength) {
+                                                        $lokasiBarang = substr($lokasiBarang, 0, $maxLength) . '...';
+                                                    }
+                                                @endphp
+                                                <h6 class="mb-0 text-sm">{{ $lokasiBarang }}</h6>
                                             </div>
                                         </div>
                                     </td>
