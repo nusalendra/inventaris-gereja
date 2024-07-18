@@ -3,98 +3,67 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="row mb-5">
-        @foreach ($data as $item)
-            <div class="col-md-3 col-lg-3 mb-3">
-                <div class="card h-100 d-flex flex-column">
-                    <img class="card-img-top" src="/gambar-barang/{{ $item->gambar }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-semibold">{{ $item->nama }}</h5>
-                        <p>
-                            <span>Stok Barang Tersedia : {{ $item->stok }}</span>
-                            <br>
-                            <span>Batas Peminjaman Barang : {{ $item->hari_batas_peminjaman }} Hari</span>
-                        </p>                        
-
-                        @php
-                            $peminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
-                                ->where('user_id', Auth::user()->id)
-                                ->exists();
-
-                            $peminjamanHariIni = App\Models\Peminjaman::whereDate('created_at', $tanggalSekarang)
-                                ->where('user_id', Auth::user()->id)
-                                ->whereIn('status', ['Belum Dikonfirmasi', 'Dikonfirmasi'])
-                                ->count();
-
-                            $dataPeminjaman = App\Models\Peminjaman::where('barang_id', $item->id)
-                                ->where('user_id', Auth::user()->id)
-                                ->get();
-                        @endphp
-                        @if (!$peminjaman)
-                            @if ($peminjamanHariIni >= 2)
-                                <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
-                                    data-bs-target="#modalToggle2">Pinjam Barang</button>
-                            @else
-                                <a href="/form-peminjaman-barang/{{ $item->id }}"
-                                    class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
-                            @endif
-                        @else
-                            @php
-                                $setButtonLebihDariSatu = false;
-                            @endphp
-
-                            @foreach ($dataPeminjaman as $peminjaman)
-                                @if ($peminjaman->status == 'Belum Dikonfirmasi' && !$setButtonLebihDariSatu)
-                                    @php
-                                        $setButtonLebihDariSatu = true;
-                                    @endphp
-                                    <button type="button" class="fw-semibold btn btn-primary">Permintaan
-                                        Peminjaman</button>
-                                @elseif ($peminjaman->status == 'Dikonfirmasi' && !$setButtonLebihDariSatu)
-                                    @php
-                                        $setButtonLebihDariSatu = true;
-                                    @endphp
-                                    <button type="button" class="fw-semibold btn btn-danger">Barang sedang
-                                        dipinjam</button>
-                                @endif
-                            @endforeach
-
-                            {{-- Tambahkan tombol "Pinjam Barang" jika tidak ada tombol yang ditampilkan --}}
-                            @if (!$setButtonLebihDariSatu)
-                                @if ($peminjamanHariIni >= 2)
-                                    <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
-                                        data-bs-target="#modalToggle2">Pinjam Barang</button>
-                                @else
-                                    <a href="/form-peminjaman-barang/{{ $item->id }}"
-                                        class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
-                                @endif
-                            @endif
-                        @endif
-                    </div>
+    <div class="row mb-1">
+        <div class="col-md-12 mb-3">
+            <form action="{{ url('/peminjaman-barang') }}" method="GET" id="searchForm">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" id="searchInput" placeholder="Cari Barang..."
+                        value="{{ request('search') }}">
+                    <button class="btn btn-primary" type="submit">Cari</button>
                 </div>
-            </div>
-        @endforeach
+            </form>
+        </div>
 
-        {{-- Modal --}}
-        <div class="modal fade" id="modalToggle2" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-danger" id="modalToggleLabel2">Penolakan Peminjaman Barang</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-dark fw-semibold">Maaf, peminjaman barang anda ditolak. Setiap peminjam dibatasi
-                            untuk
-                            meminjam maksimal 2 barang
-                            dalam 1 hari. Terima kasih atas pengertian Anda.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#modalToggle" data-bs-toggle="modal"
-                            data-bs-dismiss="modal">Kembali</button>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="tableBody">
+            @include('content.pages.peminjam.peminjaman-barang.paginate', ['data' => $data])
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let searchTerm = '{{ request('search') }}';
+            const tableBody = document.getElementById('tableBody');
+            const searchInput = document.getElementById('searchInput');
+
+            const loadData = async (searchTerm, page) => {
+                try {
+                    const response = await fetch(`/peminjaman-barang?search=${searchTerm}&page=${page}`);
+                    const html = await response.text();
+                    const tempContainer = document.createElement('div');
+                    tempContainer.innerHTML = html;
+                    const newData = tempContainer.querySelector('#tableBody');
+
+                    if (newData) {
+                        tableBody.innerHTML = newData.innerHTML;
+                    } else {
+                        tableBody.innerHTML = tempContainer.innerHTML;
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            };
+
+            searchInput.addEventListener('input', () => {
+                searchTerm = searchInput.value; // Simpan term pencarian saat ini
+                loadData(searchTerm, 1); // Ganti page ke 1 saat pencarian berubah
+            });
+
+            document.addEventListener('click', function(event) {
+                if (event.target.matches('.pagination-links a')) {
+                    event.preventDefault();
+                    const hrefAttribute = event.target.getAttribute('href');
+
+                    // Periksa apakah elemen yang diklik merupakan tautan (link)
+                    if (hrefAttribute) {
+                        const pageMatch = hrefAttribute.match(
+                        /page=(\d+)/); // Match halaman dari tautan paginate
+                        if (pageMatch) {
+                            const nextPage = pageMatch[1];
+                            loadData(searchTerm, nextPage); // Gunakan searchTerm yang disimpan
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

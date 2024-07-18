@@ -1,0 +1,22 @@
+.pagination-container .page-link {
+    padding: 0.5rem 0.75rem; /* Ukuran padding yang lebih kecil */
+    font-size: 0.875rem; /* Ukuran font yang lebih kecil */
+}
+
+.pagination-container .page-item.active .page-link {
+    background-color: #007bff; /* Warna background untuk halaman aktif */
+    border-color: #007bff; /* Warna border untuk halaman aktif */
+}
+
+.pagination-container .page-link:hover {
+    background-color: #e9ecef; /* Warna background saat hover */
+}
+
+.pagination-container .page-link {
+    color: #007bff; /* Warna teks untuk link halaman */
+}
+
+.pagination-container .page-link svg {
+    width: 1rem; /* Ukuran ikon panah */
+    height: 1rem; /* Ukuran ikon panah */
+}
