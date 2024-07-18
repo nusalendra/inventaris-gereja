@@ -15,12 +15,19 @@ class PeminjamanBarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Barang::all();
+        $searchTerm = $request->input('search');
+        $data = Barang::when($searchTerm, function($query, $searchTerm) {
+            return $query->where('nama', 'like', "%{$searchTerm}%");
+        })->simplePaginate(8);
 
         $tanggalSekarang = Carbon::now()->toDateString();
-        
+
+        if ($request->ajax()) {
+            return view('content.pages.peminjam.peminjaman-barang.paginate', compact('data'))->render();
+        }
+
         return view('content.pages.peminjam.peminjaman-barang.index', compact('data', 'tanggalSekarang'));
     }
 
