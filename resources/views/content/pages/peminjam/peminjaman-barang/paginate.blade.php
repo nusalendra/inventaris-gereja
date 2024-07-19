@@ -25,6 +25,11 @@
                         ->where('user_id', Auth::user()->id)
                         ->get();
 
+                    $peminjamanBarangHariIni = App\Models\Peminjaman::where('barang_id', $item->id)
+                        ->whereDate('created_at', now())
+                        ->whereIn('status', ['Belum Dikonfirmasi', 'Dikonfirmasi'])
+                        ->count();
+
                     $setButtonLebihDariSatu = false;
                 @endphp
 
@@ -32,7 +37,10 @@
                 @if (!$peminjaman)
                     @if ($peminjamanHariIni >= 2)
                         <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
-                            data-bs-target="#modalToggle2">Pinjam Barang</button>
+                            data-bs-target="#modalPinjamBarangPerUser">Pinjam Barang</button>
+                    @elseif ($peminjamanBarangHariIni >= 4)
+                        <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
+                            data-bs-target="#modalPinjamBarangAllUser">Pinjam Barang</button>
                     @else
                         <a href="/form-peminjaman-barang/{{ $item->id }}"
                             class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
@@ -58,7 +66,10 @@
                     @if (!$setButtonLebihDariSatu)
                         @if ($peminjamanHariIni >= 2)
                             <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
-                                data-bs-target="#modalToggle2">Pinjam Barang</button>
+                                data-bs-target="#modalPinjamBarangPerUser">Pinjam Barang</button>
+                        @elseif ($peminjamanBarangHariIni >= 4)
+                            <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal"
+                                data-bs-target="#modalPinjamBarangAllUser">Pinjam Barang</button>
                         @else
                             <a href="/form-peminjaman-barang/{{ $item->id }}"
                                 class="btn btn-outline-primary mt-auto">Pinjam Barang</a>
@@ -76,3 +87,39 @@
         {{ $data->appends(['search' => request('search')])->links() }}
     </div>
 @endif
+
+{{-- Modal untuk batas peminjaman 2 barang per user per hari --}}
+<div class="modal fade" id="modalPinjamBarangPerUser" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="modalToggleLabel2">Penolakan Peminjaman Barang</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-dark fw-semibold">Maaf, peminjaman barang anda ditolak. Setiap peminjam dibatasi untuk meminjam maksimal 2 barang dalam 1 hari. Terima kasih atas pengertian Anda.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Kembali</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal untuk batas peminjaman barang yang sama oleh 4 user per hari --}}
+<div class="modal fade" id="modalPinjamBarangAllUser" aria-hidden="true" aria-labelledby="modalToggleLabel3" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="modalToggleLabel3">Penolakan Peminjaman Barang</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-dark fw-semibold">Maaf, peminjaman barang anda ditolak. Setiap barang hanya dapat dipinjam oleh maksimal 4 user dalam satu hari. Terima kasih atas pengertian Anda.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Kembali</button>
+            </div>
+        </div>
+    </div>
+</div>

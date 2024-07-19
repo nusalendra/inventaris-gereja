@@ -3,7 +3,8 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="row mb-1">
+    <div class="row mb-5">
+        {{-- Form Pencarian --}}
         <div class="col-md-12 mb-3">
             <form action="{{ url('/peminjaman-barang') }}" method="GET" id="searchForm">
                 <div class="input-group">
@@ -19,12 +20,16 @@
         </div>
     </div>
 
+    
+
+    {{-- Script untuk pencarian dan pagination --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let searchTerm = '{{ request('search') }}';
+            let searchTerm = '{{ request('search') }}'; // Variabel untuk menyimpan term pencarian saat ini
             const tableBody = document.getElementById('tableBody');
             const searchInput = document.getElementById('searchInput');
 
+            // Fungsi untuk memuat data dengan parameter pencarian dan halaman
             const loadData = async (searchTerm, page) => {
                 try {
                     const response = await fetch(`/peminjaman-barang?search=${searchTerm}&page=${page}`);
@@ -55,8 +60,7 @@
 
                     // Periksa apakah elemen yang diklik merupakan tautan (link)
                     if (hrefAttribute) {
-                        const pageMatch = hrefAttribute.match(
-                        /page=(\d+)/); // Match halaman dari tautan paginate
+                        const pageMatch = hrefAttribute.match(/page=(\d+)/); // Match halaman dari tautan paginate
                         if (pageMatch) {
                             const nextPage = pageMatch[1];
                             loadData(searchTerm, nextPage); // Gunakan searchTerm yang disimpan
