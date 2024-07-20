@@ -4,7 +4,11 @@
 
 @section('content')
     <div class="text-end mb-3">
-        <a href="/laporan/cetak-pdf" class="btn btn-primary" target="_blank">Cetak PDF</a>
+        <form action="/laporan/cetak-pdf" method="GET" target="_blank" class="d-inline">
+            <input type="date" name="start_date" class="form-control d-inline w-auto" required>
+            <input type="date" name="end_date" class="form-control d-inline w-auto" required>
+            <button type="submit" class="btn btn-primary">Cetak PDF</button>
+        </form>
     </div>
     <div class="card">
         <h5 class="card-header text-dark fw-bold">Laporan Peminjaman Barang Selesai</h5>
