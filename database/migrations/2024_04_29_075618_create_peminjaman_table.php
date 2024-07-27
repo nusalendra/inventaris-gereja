@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tanggal_pengembalian');
             $table->string('lokasi_barang');
             $table->integer('jumlah');
+            $table->string('url_bukti_peminjaman_barang')->nullable();
             $table->string('status');
             $table->timestamps();
         });

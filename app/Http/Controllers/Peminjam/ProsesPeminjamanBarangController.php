@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class ProsesPeminjamanBarangController extends Controller
 {
@@ -72,5 +74,15 @@ class ProsesPeminjamanBarangController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function unduhBuktiPeminjamanBarang($id) {
+        $data = Peminjaman::find($id);
+
+        $filePath = public_path($data->url_bukti_peminjaman_barang);
+
+        if (File::exists($filePath)) {
+            return Response::download($filePath);
+        }
     }
 }

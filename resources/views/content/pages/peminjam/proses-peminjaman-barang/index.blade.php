@@ -16,9 +16,10 @@
                                 <th class="text-uppercase text-xs font-weight-bolder">Kegiatan</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Tgl Pengajuan</th>
                                 <th class="text-uppercase text-xs font-weight-bolder">Tgl Peminjaman - Pengembalian</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Jumlah</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Barang</th>
-                                <th class="text-uppercase text-xs font-weight-bolder">Status Peminjaman</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Jmlh</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Lokasi Brg</th>
+                                <th class="text-uppercase text-xs font-weight-bolder">Status Pinjam</th>
+                                <th class="text-uppercase text-xs font-weight-bolder"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,6 +100,24 @@
                                             </div>
                                         </div>
                                     </td>
+                                    @if ($item->status == 'Dikonfirmasi')
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <form action="unduh-bukti-peminjaman-barang/{{ $item->id }}"
+                                                        method="POST" role="form text-left">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary" value="Dikonfirmasi"
+                                                            name="status">
+                                                            Unduh Bukti Peminjaman
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 </tr>
                             @endforeach
 

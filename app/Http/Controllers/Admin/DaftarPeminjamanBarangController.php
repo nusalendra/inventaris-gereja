@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\PembatalanPeminjamanBarang;
 use App\Models\Peminjaman;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 
 class DaftarPeminjamanBarangController extends Controller
 {
@@ -59,6 +62,25 @@ class DaftarPeminjamanBarangController extends Controller
         
         $peminjaman = Peminjaman::find($id);
         if($request->status == 'Dikonfirmasi') {
+            $user = User::find($peminjaman->user_id);
+
+            $pdf = Pdf::loadView('content.pages.admin.daftar-peminjaman-barang.bukti-peminjaman-barang-pdf', [
+                'data' => $peminjaman,
+                'user' => $user
+            ])->setPaper('a4', 'potrait');
+
+            $folder = public_path('Bukti Peminjaman Barang/');
+
+            if (!File::exists($folder)) {
+                File::makeDirectory($folder, 0755, true);
+            }
+
+            $filename = $user->name . ' ' . $peminjaman->tanggal_peminjaman . '-' . $peminjaman->tanggal_pengembalian .'.pdf';
+            $filePath = $folder . '/' . $filename;
+
+            $pdf->save($filePath);
+
+            $peminjaman->url_bukti_peminjaman_barang = 'Bukti Peminjaman Barang/' . $filename;
             $peminjaman->status = $request->status;
             
             $peminjaman->save();
@@ -67,6 +89,7 @@ class DaftarPeminjamanBarangController extends Controller
             $barang->stok -= $peminjaman->jumlah;
             
             $barang->save();
+
         } else {
             $peminjaman->status = 'Ditolak';
             $peminjaman->save();
