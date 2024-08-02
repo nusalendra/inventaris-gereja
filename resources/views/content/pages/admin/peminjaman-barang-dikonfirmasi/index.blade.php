@@ -94,13 +94,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="d-flex px-2 py-1">
+                                        <div class="d-flex px-1 py-1">
                                             <form action="/pengembalian-barang/{{ $item->id }}" method="POST">
                                                 @csrf
                                                 @method('put')
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
                                                     <button type="submit" class="btn btn-primary">
-                                                        Pengembalian Barang
+                                                        Konfirmasi Pengembalian
                                                     </button>
                                                 </div>
                                             </form>
@@ -109,7 +109,7 @@
                                                 $tanggalPeminjaman = \Carbon\Carbon::parse($item->tanggal_peminjaman);
                                                 $selisihHari = $tanggalSekarang->diffInDays($tanggalPeminjaman);
                                             @endphp
-                                            @if ($selisihHari > 2)
+                                            @if ($selisihHari > 2 && $item->status !== 'Dikembalikan')
                                                 <form action="/alasan-pembatalan-barang/{{ $item->id }}"
                                                     method="POST">
                                                     @csrf

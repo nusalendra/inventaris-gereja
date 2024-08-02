@@ -21,7 +21,8 @@ class ProsesPeminjamanBarangController extends Controller
         $data = Peminjaman::where('user_id', $user->id)
             ->where(function($query) {
                 $query->where('status', 'Belum Dikonfirmasi')
-                      ->orWhere('status', 'Dikonfirmasi');
+                      ->orWhere('status', 'Dikonfirmasi')
+                      ->orWhere('status', 'Dikembalikan');
             })
             ->get();
         
@@ -65,7 +66,11 @@ class ProsesPeminjamanBarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = Peminjaman::find($id);
+        $data->status = 'Dikembalikan';
+        $data->save();
+
+        return back();
     }
 
     /**

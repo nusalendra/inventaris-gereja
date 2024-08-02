@@ -16,7 +16,7 @@ class PeminjamanBarangDikonfirmasiController extends Controller
     public function index()
     {
         
-        $data = Peminjaman::where('status', '=', 'Dikonfirmasi')->get();
+        $data = Peminjaman::where('status', '=', 'Dikonfirmasi')->orWhere('status', '=', 'Dikembalikan')->get();
         return view('content.pages.admin.peminjaman-barang-dikonfirmasi.index', compact('data'));
     }
 
@@ -75,7 +75,7 @@ class PeminjamanBarangDikonfirmasiController extends Controller
 
     public function pengembalianBarang($id) {
         $peminjaman = Peminjaman::find($id);
-        $peminjaman->status = 'Dikembalikan';
+        $peminjaman->status = 'Selesai';
         $peminjaman->save();
 
         $barang = Barang::where('id', $peminjaman->barang_id)->first();
