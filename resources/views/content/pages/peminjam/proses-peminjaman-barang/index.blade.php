@@ -104,11 +104,20 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
+                                                    <form action="proses-peminjaman-barang/{{ $item->id }}"
+                                                        method="POST" role="form text-left">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-primary" name="status">
+                                                            Pengembalian Barang
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <div class="ms-1 d-flex flex-column justify-content-center">
                                                     <form action="unduh-bukti-peminjaman-barang/{{ $item->id }}"
                                                         method="POST" role="form text-left">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-primary" value="Dikonfirmasi"
-                                                            name="status">
+                                                        <button type="submit" class="btn btn-dark" name="status">
                                                             Unduh Bukti Peminjaman
                                                         </button>
                                                     </form>

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class LaporanController extends Controller
 {
     public function index() {
-        $data = Peminjaman::where('status', 'Dikembalikan')->get();
+        $data = Peminjaman::where('status', 'Selesai')->get();
 
         return view('content.pages.admin.laporan.index', compact('data'));
     }
@@ -25,7 +25,7 @@ class LaporanController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        $data = Peminjaman::where('status', 'Dikembalikan')
+        $data = Peminjaman::where('status', 'Selesai')
             ->whereBetween('tanggal_peminjaman', [$startDate, $endDate])
             ->orderBy('tanggal_peminjaman', 'asc')
             ->get();

@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/history-peminjaman-barang', [HistoryPeminjamanBarangController::class, 'index'])->name('history-peminjaman-barang');
         
         Route::get('/proses-peminjaman-barang', [ProsesPeminjamanBarangController::class, 'index'])->name('proses-peminjaman-barang');
+        Route::put('/proses-peminjaman-barang/{id}', [ProsesPeminjamanBarangController::class, 'update'])->name('proses-peminjaman-barang-update');
         Route::post('/unduh-bukti-peminjaman-barang/{id}', [ProsesPeminjamanBarangController::class, 'unduhBuktiPeminjamanBarang'])->name('unduh-bukti-peminjaman-barang');
     });
     

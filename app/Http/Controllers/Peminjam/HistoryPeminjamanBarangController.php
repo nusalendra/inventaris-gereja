@@ -18,7 +18,7 @@ class HistoryPeminjamanBarangController extends Controller
             ->where(function($query) {
                 $query->where('status', 'Ditolak')
                       ->orWhere('status', 'Dibatalkan')
-                      ->orWhere('status', 'Dikembalikan');
+                      ->orWhere('status', 'Selesai');
             })
             ->get();
         
