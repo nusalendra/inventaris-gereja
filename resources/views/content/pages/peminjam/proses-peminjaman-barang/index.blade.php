@@ -104,14 +104,10 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <form action="proses-peminjaman-barang/{{ $item->id }}"
-                                                        method="POST" role="form text-left">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-primary" name="status">
-                                                            Pengembalian Barang
-                                                        </button>
-                                                    </form>
+                                                    <button type="button" class="btn btn-primary"
+                                                        onclick="showSweetAlert({{ $item->id }})">
+                                                        Pengembalian Barang
+                                                    </button>
                                                 </div>
                                                 <div class="ms-1 d-flex flex-column justify-content-center">
                                                     <form action="unduh-bukti-peminjaman-barang/{{ $item->id }}"
@@ -129,7 +125,6 @@
                                     @endif
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -142,4 +137,67 @@
             </div>
         </div>
     </div>
+    <style>
+        .swal2-container {
+            z-index: 2000 !important;
+        }
+
+        .swal2-container.swal2-shown .navbar,
+        .swal2-container.swal2-shown .navbar * {
+            visibility: hidden;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function showSweetAlert(itemId) {
+            Swal.fire({
+                title: "Upload Bukti Pengembalian Barang",
+                input: "file",
+                inputAttributes: {
+                    "accept": "image/png, image/jpeg",
+                    "aria-label": "Upload your profile picture"
+                },
+                showCancelButton: true,
+                onOpen: () => {
+                    document.body.classList.add('swal2-shown'); 
+                },
+                onClose: () => {
+                    document.body.classList.remove('swal2-shown');
+                }
+            }).then((result) => {
+                if (result.value) {
+                    const file = result.value;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        Swal.fire({
+                            title: "Gambar yang Anda upload",
+                            imageUrl: e.target.result,
+                            imageAlt: "The uploaded picture"
+                        }).then(() => {
+                            // Create a form to submit the file
+                            const formData = new FormData();
+                            formData.append('_token', '{{ csrf_token() }}'); // Laravel CSRF token
+                            formData.append('_method', 'PUT'); // Laravel method spoofing
+                            formData.append('file', file);
+
+                            fetch(`/proses-peminjaman-barang/${itemId}`, {
+                                    method: 'POST',
+                                    body: formData
+                                }).then(response => response.json())
+                                .then(data => {
+                                    Swal.fire('Sukses!', 'File telah dikirim.', 'success').then(
+                                    () => {
+
+                                            window.location.reload();
+                                        });
+                                }).catch(error => {
+                                    Swal.fire('Gagal!', 'Terjadi kesalahan.', 'error');
+                                });
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    </script>
 @endsection

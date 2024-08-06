@@ -67,10 +67,16 @@ class ProsesPeminjamanBarangController extends Controller
     public function update(Request $request, string $id)
     {
         $data = Peminjaman::find($id);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = $data->user->name . '_' . $data->barang->nama . '_' . 'Tanggal Pengembalian ' . $data->tanggal_pengembalian . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('bukti-pengembalian-barang'), $filename);
+            $data->bukti_pengembalian_barang = $filename;
+        }
         $data->status = 'Dikembalikan';
         $data->save();
 
-        return back();
+        return response()->json(['message' => 'File berhasil dikirim.']);
     }
 
     /**
