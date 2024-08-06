@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('lokasi_barang');
             $table->integer('jumlah');
             $table->string('url_bukti_peminjaman_barang')->nullable();
+            $table->string('bukti_pengembalian_barang')->nullable();
             $table->string('status');
             $table->timestamps();
         });

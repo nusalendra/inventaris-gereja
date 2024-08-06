@@ -95,7 +95,8 @@
                                     </td>
                                     <td>
                                         <div class="d-flex px-1 py-1">
-                                            <form action="/pengembalian-barang/{{ $item->id }}" method="POST">
+                                            <form class="pengembalianForm" action="/pengembalian-barang/{{ $item->id }}"
+                                                method="POST" data-image-url="{{ $item->bukti_pengembalian_barang }}">
                                                 @csrf
                                                 @method('put')
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
@@ -126,8 +127,7 @@
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title"
                                                                             id="modalPembatalanBarangTitle">
-                                                                            Pembatalan Peminjaman
-                                                                            Barang</h5>
+                                                                            Pembatalan Peminjaman Barang</h5>
                                                                         <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
@@ -164,11 +164,57 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <style>
+                        .swal2-container {
+                            z-index: 2000 !important;
+                        }
+
+                        .swal2-container.swal2-shown .navbar,
+                        .swal2-container.swal2-shown .sidebar {
+                            visibility: hidden;
+                        }
+                    </style>
                     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
                         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
                     <script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
                         let table = new DataTable('#myTable');
+
+                        document.querySelectorAll('.pengembalianForm').forEach(function(form) {
+                            form.addEventListener('submit', function(event) {
+                                event.preventDefault();
+                                const imageUrl = form.getAttribute(
+                                'data-image-url');
+
+                                Swal.fire({
+                                    title: "Bukti Pengembalian Barang",
+                                    text: "Periksa kembali bahwa barang telah diterima. Klik 'Konfirmasi Pengembalian' untuk mengkonfirmasi.",
+                                    imageUrl: 'bukti-pengembalian-barang/' + imageUrl,
+                                    imageWidth: 900,
+                                    imageHeight: 450,
+                                    width: '1000px',
+                                    padding: '1em',
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Konfirmasi Pengembalian",
+                                    onBeforeOpen: () => {
+                                        document.querySelector('.navbar').style.visibility = 'hidden';
+                                        document.querySelector('.sidebar').style.visibility = 'hidden';
+                                    },
+                                    onClose: () => {
+                                        document.querySelector('.navbar').style.visibility = '';
+                                        document.querySelector('.sidebar').style.visibility = '';
+                                    }
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        form.submit();
+                                    }
+                                });
+                            });
+                        });
                     </script>
                 </div>
 
