@@ -24,9 +24,19 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'nusa',
             'username' => 'nusalendra',
+            'email' => 'nusalendraa@gmail.com',
             'password' => Hash::make('nusalendra'),
             'nomor_telephone' => '089677888764',
             'role' => 'Admin'
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Budi Setyo',
+            'username' => 'budisetyo',
+            'email' => 'estergloryas@gmail.com',
+            'password' => Hash::make('password'),
+            'nomor_telephone' => '089677888764',
+            'role' => 'Peminjam'
         ]);
     }
 }

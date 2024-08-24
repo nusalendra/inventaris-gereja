@@ -50,6 +50,12 @@
                                 <span>Buat Akun</span>
                             </a>
                         </p>
+
+                        <p class="text-center">
+                            <a href="{{ url('/lupa-password') }}">
+                                <span>Lupa password?</span>
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
