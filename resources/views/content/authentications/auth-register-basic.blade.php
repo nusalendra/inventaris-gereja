@@ -32,6 +32,11 @@
                                 <input type="text" class="form-control" id="username" name="username"
                                     placeholder="Username" autofocus required>
                             </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" name="email"
+                                    placeholder="Email" autofocus required>
+                            </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
@@ -64,4 +69,21 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (session('error'))
+            Swal.fire({
+                title: 'Error!',
+                text: "{{ session('error') }}",
+                icon: 'error'
+            });
+        @elseif (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                icon: 'success'
+            });
+        @endif
+    </script>
 @endsection
