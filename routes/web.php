@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PeminjamanBarangDikonfirmasiController;
+use App\Http\Controllers\authentications\ChangePasswordBasic;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\RegisterBasic;
@@ -67,6 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/proses-peminjaman-barang', [ProsesPeminjamanBarangController::class, 'index'])->name('proses-peminjaman-barang');
         Route::put('/proses-peminjaman-barang/{id}', [ProsesPeminjamanBarangController::class, 'update'])->name('proses-peminjaman-barang-update');
         Route::post('/unduh-bukti-peminjaman-barang/{id}', [ProsesPeminjamanBarangController::class, 'unduhBuktiPeminjamanBarang'])->name('unduh-bukti-peminjaman-barang');
+
+        Route::get('/ubah-password', [ChangePasswordBasic::class, 'index'])->name('ubah-password');
+        Route::post('/ubah-password', [ChangePasswordBasic::class, 'changePassword'])->name('ubah-password-store');
     });
     
     Route::post('/logout', [LoginBasic::class, 'destroy']);

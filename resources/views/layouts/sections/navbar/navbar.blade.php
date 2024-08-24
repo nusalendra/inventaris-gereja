@@ -102,12 +102,18 @@
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
+                @if (Auth::user()->role == 'Peminjam')
+                    <li>
+                        <a href="/ubah-password" class="dropdown-item">
+                            <span class="align-middle">Ubah Password</span>
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <form action="/logout" method="POST">
                         @csrf
                         <button type="submit" class="dropdown-item">
-                            <i class='bx bx-power-off me-2'></i>
-                            <span class="align-middle">Log Out</span>
+                            <span class="align-middle">Keluar</span>
                         </button>
                     </form>
                 </li>
