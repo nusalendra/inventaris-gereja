@@ -21,7 +21,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [LoginBasic::class, 'store']);
     Route::get('/register', [RegisterBasic::class, 'index'])->name('auth-register-basic');
     Route::post('/register', [RegisterBasic::class, 'store']);
-    Route::get('/auth/forgot-password-basic', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+    Route::get('/lupa-password', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password-basic');
+    Route::post('/lupa-password', [ForgotPasswordBasic::class, 'resetPassword']);
 });
 
 Route::group(['middleware' => ['auth']], function () {
